@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>Teleswift.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>teleswift-test-bot.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>4A42D8961D52EE0B002F3A60</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4A42D8E11D532958002F3A60</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4A42D8F11D5331CC002F3A60</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4A42D9051D5359E5002F3A60</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
