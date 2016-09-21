@@ -27,7 +27,7 @@ extension Double: JSONDecodable {
     ///           an instance of `Double` cannot be created from the `JSON` value that was
     ///           passed to this initializer.
     public init(json: JSON) throws {
-        switch json {
+		switch json {
         case let .Double(double):
             self = double
         case let .Int(int):

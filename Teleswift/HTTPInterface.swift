@@ -35,24 +35,37 @@ internal class HTTPInterface {
 	
 	// synthesiseURL to synthesise proper URL for contact with TG HTTP API
 	internal func synthesiseURL(_ tgMethod: String, arguments: [String] = [String](), caller: String) -> URL {
-		var url: String = String("https://api.telegram.org/bot\(token)/\(tgMethod)?")
-		for i in arguments {url.append("\(i)&")}
-		let returnURL = String(url.characters.dropLast()).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
-		verbosity(returnURL, enabled: logVerbosely, caller: "synthesiseURL for \(caller.components(separatedBy: "(").first!)")
-		return URL(string: returnURL)!
+		return autoreleasepool(invoking: { () -> URL in
+			var url: String = String("https://api.telegram.org/bot\(token)/\(tgMethod)?")
+			for i in arguments {url.append("\(i)&")}
+			let returnURL = String(url.characters.dropLast()).addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed)!
+			verbosity(returnURL, enabled: logVerbosely, caller: "synthesiseURL for \(caller.components(separatedBy: "(").first!)")
+			return URL(string: returnURL)!
+		})
 	}
 	
 	// places a call to the Telegram servers.
 	internal func call(_ tgMethod: String, arguments: [String] = [String](), caller: String = #function) throws -> JSON {
 		
-		if Reachability()?.currentReachabilityStatus == .notReachable {error("No Internet connection", enabled: logErrors, severity: .FATAL); throw apiError.noConnection}
+		return try autoreleasepool(invoking: { () -> JSON in
 		
-		var receivedData = Data()
-		do{receivedData = try Data(contentsOf: self.synthesiseURL(tgMethod, arguments: arguments, caller: caller))} catch let err {if err.localizedDescription.contains("couldn’t be opened.") {error("Telegram API returned not OK", enabled: logErrors, severity: .FATAL); throw apiError.notOK}}
+			var receivedData = Data()
+			
+			if Reachability()?.currentReachabilityStatus == .notReachable {error("No Internet connection", enabled: logErrors, severity: .FATAL); throw apiError.noConnection}
+			
+			do {receivedData = try Data(contentsOf: self.synthesiseURL(tgMethod, arguments: arguments, caller: caller))} catch let err {if err.localizedDescription.contains("couldn’t be opened.") {error("Telegram API returned not OK", enabled: logErrors, severity: .FATAL); throw apiError.notOK}}
 		
-		let returnedData = try JSON(data: receivedData)
-		
-		verbosity("received: \(returnedData)", enabled: logVerbosely, caller: "call for \(caller.components(separatedBy: "(").first!)")
-		return returnedData["result"]!
+			let returnedData = try JSON(data: receivedData)
+			
+			if try returnedData.bool("ok") == false && returnedData.containsAllOf(["error_code", "description"]).1 {
+				if try returnedData.int("error_code") == 401 && (try returnedData.string("description")) == "Unauthorized" {throw apiError.unauthorized}
+			}
+			if try returnedData.bool("ok") == false {error("Telegram API returned not OK", enabled: logErrors, severity: .FATAL); throw apiError.notOK}
+			
+			verbosity("received: \(returnedData)", enabled: logVerbosely, caller: "call for \(caller.components(separatedBy: "(").first!)")
+			
+			return returnedData["result"]!
+			
+		})
 	}
 }

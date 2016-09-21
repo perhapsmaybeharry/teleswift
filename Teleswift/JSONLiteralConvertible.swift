@@ -19,8 +19,7 @@ extension JSON: ExpressibleByArrayLiteral {
     /// Create an instance initialized with `elements`.
     public init(arrayLiteral elements: JSON...) {
         self.init(elements)
-    }
-    
+    }    
 }
 
 // MARK: - DictionaryLiteralConvertible

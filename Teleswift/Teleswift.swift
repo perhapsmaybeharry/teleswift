@@ -11,17 +11,17 @@ import Foundation
 open class Teleswift {
 	
 	open var logVerbosely: Bool {
-		didSet {http.logVerbosely = self.logVerbosely}}
+		didSet {http.logVerbosely = self.logVerbosely; sf.logVerbosely = self.logVerbosely}}
 	open var logErrors: Bool {didSet {http.logErrors = self.logErrors}}
 	fileprivate var token: String
 	fileprivate var http: HTTPInterface
-	fileprivate let sf: SpamFilter
+	open var sf: SpamFilter
 	public init (_ botToken: String, shouldLogVerbosely: Bool = true, shouldLogErrors: Bool = true) {
-		http = HTTPInterface(botToken: botToken)
+		token = botToken
 		logVerbosely = shouldLogVerbosely
 		logErrors = shouldLogErrors
-		token = botToken
-		sf = SpamFilter(with_consideredSpam: 2, with_timeInterval: 0.5, with_threshold: 32, with_token: token)
+		http = HTTPInterface(botToken: token)
+		sf = SpamFilter(botToken: token)
 	}
 	
 	// the contents of this class are public and are used for interfacing the Framework with the Swift app.
@@ -66,17 +66,23 @@ open class Teleswift {
 	
 	open func getUpdates(offset: Int = Int(), limit: Int = Int(), timeout: Int = Int(), shouldFilter: Bool = true) throws -> [Update] {
 		
-		var argumentArray = [String]()
-		if offset != Int() {argumentArray.append("offset=\(offset)")}
-		if limit != Int() {if (limit > 0 || limit < 100) {throw apiError.invalidParameter(offensive: "limit=\(limit)")}; argumentArray.append("limit=\(limit)")}
-		if timeout != Int() {argumentArray.append("")}
-		
-		var arrayOfUpdates = [Update]()
-		let updates = try http.call("getUpdates", arguments: argumentArray)
-		for i in try updates.array() {
-			arrayOfUpdates.append(try Update(i))
-		}
-		if shouldFilter {return try sf.filter(arrayOfUpdates)} else {return arrayOfUpdates}
+		return try autoreleasepool(invoking: { () -> [Update] in
+			var argumentArray = [String]()
+			if offset != Int() {argumentArray.append("offset=\(offset)")}
+			if limit != Int() {if (limit > 0 || limit <= 100) {throw apiError.invalidParameter(offensive: "limit=\(limit)")}; argumentArray.append("limit=\(limit)")}
+			if timeout != Int() {argumentArray.append("")}
+			
+			var arrayOfUpdates = [Update]()
+			let updates = try http.call("getUpdates", arguments: argumentArray)
+			for i in try updates.array() {
+				arrayOfUpdates.append(try Update(i))
+			}
+			
+//			if arrayOfUpdates.count == 0 {return arrayOfUpdates}
+//			arrayOfUpdates.remove(at: 0)
+			
+			if shouldFilter {return try sf.filter(arrayOfUpdates)} else {return arrayOfUpdates}
+		})
 		
 	}
 	
@@ -84,16 +90,26 @@ open class Teleswift {
 	
 	open func sendMessage(chat_id: String, text: String, parse_mode: String = String(), disable_web_page_preview: Bool = false, disable_notification: Bool = false, reply_to_message_id: Int = Int()) throws -> Message {
 		
-		var argumentArray = ["chat_id=\(chat_id)", "text=\(text)"]
-		if parse_mode != String() && (parse_mode == "HTML" || parse_mode == "Markdown") {argumentArray.append("parse_mode=\(parse_mode)")}
-		if disable_web_page_preview {argumentArray.append("disable_web_page_preview=\(disable_web_page_preview)")}
-		if disable_notification {argumentArray.append("disable_notification=\(disable_notification)")}
-		
-		return try Message(try http.call("sendMessage", arguments: argumentArray))
-		
+		return try autoreleasepool(invoking: { () throws -> Message in
+			
+			if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+			if text == "" {throw apiError.invalidParameter(offensive: "text is blank")}
+			
+			var argumentArray = ["chat_id=\(chat_id)", "text=\(text)"]
+			if parse_mode != String() && (parse_mode == "HTML" || parse_mode == "Markdown") {argumentArray.append("parse_mode=\(parse_mode)")}
+			if disable_web_page_preview {argumentArray.append("disable_web_page_preview=\(disable_web_page_preview)")}
+			if disable_notification {argumentArray.append("disable_notification=\(disable_notification)")}
+			
+			return try Message(try http.call("sendMessage", arguments: argumentArray))
+			
+		})
 	}
 	
 	open func forwardMessage(chat_id: String, from_chat_id: String, message_id: Int, disable_notification: Bool = false) throws -> Message {
+		
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if from_chat_id == "" {throw apiError.invalidParameter(offensive: "from_chat_id is blank")}
+		if message_id == Int() {throw apiError.invalidParameter(offensive: "message_id is blank")}
 		
 		var argumentArray = ["chat_id=\(chat_id)", "from_chat_id=\(from_chat_id)", "message_id=\(message_id)"]
 		if disable_notification {argumentArray.append("disable_notification=\(disable_notification)")}
@@ -103,6 +119,9 @@ open class Teleswift {
 	}
 	
 	open func sendPhoto(chat_id: String, photo: String, caption: String = String(), disable_notification: Bool = false, reply_to_message_id: Int = Int()) throws -> Message {
+		
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if photo == "" {throw apiError.invalidParameter(offensive: "photo is blank")}
 		
 		var argumentArray = ["chat_id=\(chat_id)", "photo=\(photo)"]
 		if caption != String() {argumentArray.append("caption=\(caption)")}
@@ -114,6 +133,9 @@ open class Teleswift {
 	}
 	
 	open func sendAudio(chat_id: String, audio: Audio, disable_notification: Bool = false, reply_to_message_id: Int = Int()) throws -> Message {
+		
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if audio.file_id == Audio().file_id {throw apiError.invalidParameter(offensive: "audio is blank")}
 	
 		var argumentArray = ["chat_id=\(chat_id)", "audio=\(audio.file_id)"]
 		if audio.duration != Audio().duration {argumentArray.append("duration=\(audio.duration)")}
@@ -128,6 +150,9 @@ open class Teleswift {
 	
 	open func sendDocument(chat_id: String, document: String, caption: String = String(), disable_notification: Bool = false, reply_to_message_id: Int = Int()) throws -> Message {
 		
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if document == "" {throw apiError.invalidParameter(offensive: "document is blank")}
+		
 		var argumentArray = ["chat_id=\(chat_id)", "document=\(document)"]
 		if caption != String() {argumentArray.append("caption=\(caption)")}
 		if disable_notification {argumentArray.append("disable_notification=\(disable_notification)")}
@@ -139,6 +164,9 @@ open class Teleswift {
 	
 	open func sendSticker(chat_id: String, sticker: String, disable_notification: Bool = false, reply_to_message_id: Int) throws -> Message {
 		
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if sticker == "" {throw apiError.invalidParameter(offensive: "sticker is blank")}
+		
 		var argumentArray = ["chat_id=\(chat_id)", "sticker=\(sticker)"]
 		if disable_notification {argumentArray.append("disable_notification=\(disable_notification)")}
 		if reply_to_message_id != Int() {argumentArray.append("reply_to_message_id=\(reply_to_message_id)")}
@@ -148,6 +176,9 @@ open class Teleswift {
 	}
 	
 	open func sendVideo(chat_id: String, video: Video, caption: String = String(), disable_notification: Bool = false, reply_to_message_id: Int = Int()) throws -> Message {
+		
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if video.file_id == Video().file_id {throw apiError.invalidParameter(offensive: "video is blank")}
 		
 		var argumentArray = ["chat_id=\(chat_id)", "video=\(video.file_id)"]
 		if video.width != Video().width {argumentArray.append("width=\(video.width)")}
@@ -163,6 +194,9 @@ open class Teleswift {
 	
 	open func sendVoice(chat_id: String, voice: Voice, disable_notification: Bool = false, reply_to_message_id: Int) throws -> Message {
 		
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if voice.file_id == Voice().file_id {throw apiError.invalidParameter(offensive: "voice is blank")}
+		
 		var argumentArray = ["chat_id=\(chat_id)", "voice=\(voice.file_id)"]
 		if disable_notification {argumentArray.append("disable_notification=\(disable_notification)")}
 		if reply_to_message_id != Int() {argumentArray.append("reply_to_message_id=\(reply_to_message_id)")}
@@ -173,6 +207,9 @@ open class Teleswift {
 	
 	open func sendLocation(chat_id: String, location: Location, disable_notification: Bool = false, reply_to_message_id: Int) throws -> Message {
 		
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if location.latitude == Location().latitude {throw apiError.invalidParameter(offensive: "location is blank")}
+		
 		var argumentArray = ["chat_id=\(chat_id)", "latitude=\(location.latitude)", "longitude=\(location.longitude)"]
 		if disable_notification {argumentArray.append("disable_notification=\(disable_notification)")}
 		if reply_to_message_id != Int() {argumentArray.append("reply_to_message_id=\(reply_to_message_id)")}
@@ -182,6 +219,10 @@ open class Teleswift {
 	}
 	
 	open func sendVenue(chat_id: String, location: Location, venue: Venue, disable_notification: Bool = false, reply_to_message_id: Int) throws -> Message {
+		
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if location.latitude == Location().latitude {throw apiError.invalidParameter(offensive: "location is blank")}
+		if venue.address == Venue().address {throw apiError.invalidParameter(offensive: "venue is blank")}
 		
 		var argumentArray = ["chat_id=\(chat_id)", "latitude=\(location.latitude)", "longitude=\(location.longitude)", "title=\(venue.title)", "address=\(venue.address)"]
 		if venue.foursquare_id != Venue().foursquare_id {argumentArray.append("foursquare_id=\(venue.foursquare_id)")}
@@ -194,6 +235,9 @@ open class Teleswift {
 	
 	open func sendContact(chat_id: String, contact: Contact, disable_notification: Bool = false, reply_to_message_id: Int) throws -> Message {
 		
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if contact.user_id == Contact().user_id {throw apiError.invalidParameter(offensive: "contact is blank")}
+		
 		var argumentArray = ["chat_id=\(chat_id)", "phone_number=\(contact.phone_number)", "first_name=\(contact.first_name)"]
 		if contact.last_name != Contact().last_name {argumentArray.append("last_name=\(contact.last_name)")}
 		if disable_notification {argumentArray.append("disable_notification=\(disable_notification)")}
@@ -204,6 +248,9 @@ open class Teleswift {
 	}
 	
 	open func sendChatAction(chat_id: String, action: String) throws {
+		
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if action == "" {throw apiError.invalidParameter(offensive: "action is blank")}
 	
 		if !(action == "typing" || action == "upload_photo" || action == "record_video" || action == "upload_video" || action == "record_audio" || action == "upload_audio" || action == "upload_document" || action == "find_location") {throw apiError.invalidParameter(offensive: action)}
 		
@@ -213,6 +260,8 @@ open class Teleswift {
 	
 	open func getUserProfilePhotos(user_id: String, offset: Int = Int(), limit: Int = Int()) throws -> UserProfilePhotos {
 		
+		if user_id == "" {throw apiError.invalidParameter(offensive: "user_id is blank")}
+		
 		var argumentArray = ["user_id=\(user_id)"]
 		if offset != Int() {argumentArray.append("offset=\(offset)")}
 		if limit != Int() {if limit < 1 || limit > 100 {throw apiError.invalidParameter(offensive: "limit should be between 1 and 100, limit was set to \(limit)")}; argumentArray.append("limit=\(limit)")}
@@ -221,13 +270,24 @@ open class Teleswift {
 		
 	}
 	
-	open func getFile(file_id: String) throws -> File {return try File(try http.call("getFile", arguments: ["file_id=\(file_id)"]))}
+	open func getFile(file_id: String) throws -> File {
+		if file_id == "" {throw apiError.invalidParameter(offensive: "file_id is blank")}
+		return try File(try http.call("getFile", arguments: ["file_id=\(file_id)"]))
+	}
 	
-	open func leaveChat(chat_id: String) throws -> Bool {return try http.call("leaveChat", arguments: ["chat_id=\(chat_id)"]).bool()}
+	open func leaveChat(chat_id: String) throws -> Bool {
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		return try http.call("leaveChat", arguments: ["chat_id=\(chat_id)"]).bool()
+	}
 	
-	open func getChat(id: Int) throws -> Chat {return try Chat(try http.call("getChat", arguments: ["chat_id=\(id)"])["result"]!)}
+	open func getChat(chat_id: Int) throws -> Chat {
+		if chat_id == Int() {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		return try Chat(try http.call("getChat", arguments: ["chat_id=\(chat_id)"])["result"]!)
+	}
 	
 	open func getChatAdministrators(chat_id: String) throws -> [ChatMember] {
+		
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
 		
 		var arrayOfAdministrators = [ChatMember]()
 		for i in try http.call("getChatAdministrators", arguments: ["chat_id=\(chat_id)"]).array() {arrayOfAdministrators.append(try ChatMember(i))}
@@ -238,10 +298,6 @@ open class Teleswift {
 	open func getChatMembersCount(chat_id: String) throws -> Int {return try http.call("getChatMembersCount", arguments: ["chat_id=\(chat_id)"]).int()}
 	
 	open func getChatMember(chat_id: String, user_id: Int) throws -> ChatMember {return try ChatMember(try http.call("getChatMember", arguments: ["chat_id=\(chat_id)", "user_id=\(user_id)"]))}
-	
-	
-	// Test function for generic purposes
-//	open func test() throws -> JSON {return try http.call("getUpdates")}
 	
 	// Teleswift Implemented
 	open func getFileLink(file_id: String) throws -> URL {return URL(string: "https://api.telegram.org/file/bot\(http.token)/\(try getFile(file_id: file_id).file_path)")!}
@@ -266,108 +322,21 @@ open class Teleswift {
 		return arrayOfCommands
 	}
 	
-	open func clearUpdates() throws {
-		let previousLogStatus = logVerbosely
-		logVerbosely = false
-		if try getUpdates(shouldFilter: false).last?.update_id == nil {logVerbosely = previousLogStatus; return}
-		_=try getUpdates(offset: getUpdates(shouldFilter: false).last!.update_id+1)
-		logVerbosely = previousLogStatus
-		verbosity("[\(#function.components(separatedBy: "(").first!)] cleared updates", enabled: logVerbosely)
-	}
-}
-
-open class SpamFilter {
-	
-	var shouldWarnUserAtFirstThreshold: Bool = false
-//	var shouldTempBlockUserAtSecondThreshold: Bool = false
-	
-	/// Defines the first threshold to warn users who spam this number of messages in the defined time interval.
-	var threshold: Int = 32
-	/// Defines the second threshold to warn users who spam this number of messages in the defined time interval after they have violated the first threshold.
-//	var secondThreshold: Int = 64
-	
-	/// Defines the warning message that the filter sends to the user who spams.
-	var warnMessage: String = "Please do not spam me! You have been warned."
-	/// Defines the temporary block duration in minutes.
-//	var tempBlockDuration: Int = 2880  // quantity in minutes
-	/// Cooldown for block in minutes.
-	var cooldown = 1440
-	
-	/// Defines if the spam filter should warn/block users whose spam has been isolated in the filter.
-	var shouldActOnFilterResults: Bool = true
-	
-	/// Defines the number of messages that determine spam. If this number of messages is exceeded within the time interval by a single user, spam is logged.
-	var consideredSpam: Double = 1
-	/// Defines the spam filter's time interval in seconds. If within this time interval the number of messages is exceeded by a single user, spam is logged.
-	var timeInterval: Double = 0.1
-	
-	/// Token to use for Teleswift session.
-	var token: String
-	
-	init(with_consideredSpam: Double, with_timeInterval: Double, with_threshold: Int, with_token: String) {
-		consideredSpam = with_consideredSpam
-		timeInterval = with_timeInterval
-		threshold = with_threshold
-		token = with_token
+	open func clearUpdates(_ last_id: Int) throws {
+		return try autoreleasepool(invoking: { () in
+			let previousLogStatus = logVerbosely
+			logVerbosely = false
+			_=try getUpdates(offset: last_id+1)
+			logVerbosely = previousLogStatus
+			verbosity("cleared updates", enabled: logVerbosely, caller: #function.components(separatedBy: "(").first!)
+		})
 	}
 	
-	/// Keeps track of the offences each user makes across calls to filter().
-	private var offenceLog = [(user: User, offenceCount: Int)]()
-	
-	func filter(_ toFilter: [Update]) throws -> [Update] {
-		
-		if toFilter.count == 0 || toFilter.count == 1 {return toFilter}
-		
-		for i in toFilter {
-			
-			var doesContain = Bool()
-			for j in offenceLog {
-				if i.message.from.id == j.user.id {doesContain = true; break}
-				doesContain = false
-			}
-			
-			if !doesContain {
-				offenceLog.append((user: i.message.from, offenceCount: 0))
-			}
-		}
-		
-		for i in 0..<toFilter.count-1 {
-			
-			let startMessage = toFilter[i].message
-			let currentMessage = toFilter[i+1].message
-			
-			if Double(currentMessage.date-startMessage.date) < (timeInterval/consideredSpam) && currentMessage.from.id == startMessage.from.id {
-				for i in 0...self.offenceLog.count-1 {
-					if offenceLog[i].user.id == currentMessage.from.id {
-						offenceLog[i].offenceCount += 1
-					}
-				}
-			}
-		}
-		
-		var filtered = [Update]()
-		for i in offenceLog {
-			if i.offenceCount > 0 {
-				
-				for j in 0..<offenceLog.count {
-					if i.user.id == offenceLog[j].user.id {
-						offenceLog[j].offenceCount += 1
-					}
-					try performAntiSpamActions(user: offenceLog[j].user, offenceCount: offenceLog[j].offenceCount)
-					print("\(offenceLog[j].user.first_name) has racked up \(offenceLog[j].offenceCount) offences")
-				}
-				
-				for j in toFilter {if j.message.from.id != i.user.id {filtered.append(j); break}}
-			}
-		}
-		return filtered
-	}
-	
-	private func performAntiSpamActions(user: User, offenceCount: Int) throws {
-		if !shouldActOnFilterResults {return}
-		
-		if offenceCount > threshold {
-			do {_ = try Teleswift(self.token).sendMessage(chat_id: String(user.id), text: warnMessage)} catch {throw apiError.filterError}
-		} else {return}
+	open func getAndClearUpdates(shouldFilter: Bool = true) throws -> [Update] {
+		return try autoreleasepool(invoking: { () -> [Update] in
+			let toReturn = try self.getUpdates(shouldFilter: false)
+			if toReturn.count != 0 {try self.clearUpdates(toReturn.last!.update_id)}
+			return shouldFilter ? try sf.filter(toReturn) : toReturn
+		})
 	}
 }

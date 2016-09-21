@@ -19,6 +19,7 @@ public enum apiError: Error {
 	case notOK
 	case invalidParameter(offensive: String)
 	case filterError
+	case unauthorized
 	case unknown(error: String)
 }
 
@@ -58,6 +59,9 @@ extension String {
 	
 	/// Removes the last character of the string.
 	mutating func removeLast() {self = self.substring(to: index(before: self.endIndex))}
+	
+	/// Adds the provided string to the front of the string.
+	mutating func prepend(_ contentsOf: String) {self = contentsOf.appending(self)}
 }
 
 extension JSON {

@@ -54,7 +54,7 @@ open class Update {
 }
 
 /// This object represents a Telegram user or bot.
-open class User {
+open class User: Equatable {
 	/// Unique identifier for this user or bot
 	var id: Int
 	/// User's or bot's first name
@@ -89,6 +89,8 @@ open class User {
 		last_name = with_last_name
 		username = with_username
 	}
+	
+	public static func == (lhs: User, rhs: User) -> Bool {return lhs.id == rhs.id}
 }
 
 /// This object represents a chat.
