@@ -275,9 +275,25 @@ open class Teleswift {
 		return try File(try http.call("getFile", arguments: ["file_id=\(file_id)"]))
 	}
 	
+	open func kickChatMember(chat_id: String, user_id: Int) throws -> Bool {
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if user_id == Int() {throw apiError.invalidParameter(offensive: "user_id is blank")}
+		if try !validateBotAdmin(in_chat_id: chat_id) {throw apiError.invalidParameter(offensive: "Bot is not admin")}
+		
+		return try http.call("kickChatMember", arguments: ["chat_id=\(chat_id)", "user_id=\(user_id)"]).bool()
+	}
+	
 	open func leaveChat(chat_id: String) throws -> Bool {
 		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
 		return try http.call("leaveChat", arguments: ["chat_id=\(chat_id)"]).bool()
+	}
+	
+	open func unbanChatMember(chat_id: String, user_id: Int) throws -> Bool {
+		if chat_id == "" {throw apiError.invalidParameter(offensive: "chat_id is blank")}
+		if user_id == Int() {throw apiError.invalidParameter(offensive: "user_id is blank")}
+		if try !validateBotAdmin(in_chat_id: chat_id) {throw apiError.invalidParameter(offensive: "Bot is not admin")}
+		
+		return try http.call("unbanChatMember", arguments: ["chat_id=\(chat_id)", "user_id=\(user_id)"]).bool()
 	}
 	
 	open func getChat(chat_id: Int) throws -> Chat {
@@ -338,5 +354,9 @@ open class Teleswift {
 			if toReturn.count != 0 {try self.clearUpdates(toReturn.last!.update_id)}
 			return shouldFilter ? try sf.filter(toReturn) : toReturn
 		})
+	}
+	
+	open func validateBotAdmin(in_chat_id: String) throws -> Bool {
+		return try self.getChatMember(chat_id: in_chat_id, user_id: try self.getMe().id).status == "administrator" ? true : false
 	}
 }

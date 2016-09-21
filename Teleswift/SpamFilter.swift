@@ -55,8 +55,6 @@ open class SpamFilter {
 		
 		return try autoreleasepool(invoking: { () -> [Update] in
 			
-			let ts = Teleswift(token)
-			
 			var filtered = [Update](), currentSession = [User]()
 			
 			// Checks if toFilter has data.
@@ -116,16 +114,11 @@ open class SpamFilter {
 				// checks if any users have exceeded the thresholds
 				if log[i].count >= firstThreshold && log[i].count < secondThreshold && currentSession.contains(log[i].user) {
 					// warn
-					_ = try ts.sendMessage(chat_id: String(log[i].user.id), text: warnMessage, parse_mode: "HTML")
-					verbosity("warned \(log[i].user.id) - \(log[i].user.first_name) \(log[i].user.last_name)", enabled: logVerbosely, caller: #function)
+					try warn(logEntry: &log[i])
 					
 				} else if log[i].count >= secondThreshold && log[i].excommunicated == false && currentSession.contains(log[i].user) {
 					// excommunicate!
-					log[i].excommunicated = true
-					log[i].excomCount += 1
-					log[i].reliefTime = Date().addingTimeInterval(TimeInterval(pow(excomDuration, Double(log[i].excomCount))*60))
-					verbosity("excommunicated \(log[i].user.id) - \(log[i].user.first_name) \(log[i].user.last_name)", enabled: logVerbosely, caller: #function)
-					_ = try ts.sendMessage(chat_id: String(log[i].user.id), text: "\(excomMessage)\n\nYour excommunication will last <strong>\(pow(excomDuration, Double(log[i].excomCount))) minute(s)</strong> and be lifted on <strong>\(log[i].reliefTime) UTC</strong>.\n\nThe time now is <strong>\(Date()) UTC</strong>.", parse_mode: "HTML")
+					try excommunicate(logEntry: &log[i])
 				}
 			}
 			
@@ -137,21 +130,59 @@ open class SpamFilter {
 		})
 	}
 	
-	// checks if anyone's excommunications are due for lifting
+	/// checks if anyone's excommunications are due for lifting
 	private func checkForExcomLift() throws {
-		let ts = Teleswift(token)
-		for i in 0..<log.count {
-			
-			if log[i].excommunicated {
-				if log[i].reliefTime.compare(Date()) == ComparisonResult.orderedAscending || log[i].reliefTime.compare(Date()) == ComparisonResult.orderedSame  {
-					// lift excommunication
-					verbosity("un-excommunicated \(log[i].user.id) - \(log[i].user.first_name) \(log[i].user.last_name)", enabled: logVerbosely, caller: "filter")
-					_ = try ts.sendMessage(chat_id: (String(log[i].user.id)), text: liftedMessage, parse_mode: "HTML")
-					log[i].excommunicated = false
-					log[i].count = 0
+		return try autoreleasepool(invoking: {
+			for i in 0..<log.count {
+				if log[i].excommunicated {
+					if log[i].reliefTime.compare(Date()) == ComparisonResult.orderedAscending || log[i].reliefTime.compare(Date()) == ComparisonResult.orderedSame  {
+						// lift excommunication
+						try unexcommunicate(logEntry: &log[i])
+					}
 				}
 			}
-		}
+		})
 	}
 	
+	/// function that excommunicates user specified in the log entry
+	open func excommunicate(logEntry: inout (user: User, count: Int, excommunicated: Bool, excomCount: Int, reliefTime: Date)) throws {
+		try autoreleasepool(invoking: {
+			let ts = Teleswift(token)
+			
+			logEntry.excommunicated = true
+			logEntry.excomCount += 1
+			logEntry.reliefTime = Date().addingTimeInterval(TimeInterval(pow(excomDuration, Double(logEntry.excomCount))*60))
+			verbosity("excommunicated \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", enabled: logVerbosely, caller: #function)
+			_ = try ts.sendMessage(chat_id: String(logEntry.user.id), text: "\(excomMessage)\n\nYour excommunication will last <strong>\(pow(excomDuration, Double(logEntry.excomCount))) minute(s)</strong> and be lifted on <strong>\(logEntry.reliefTime) UTC</strong>.\n\nThe time now is <strong>\(Date()) UTC</strong>.", parse_mode: "HTML")
+		})
+	}
+	
+	/// function that unexcommunicates user specified in the log entry
+	open func unexcommunicate(logEntry: inout (user: User, count: Int, excommunicated: Bool, excomCount: Int, reliefTime: Date)) throws {
+		try autoreleasepool(invoking: {
+			let ts = Teleswift(token)
+			verbosity("un-excommunicated \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", enabled: logVerbosely, caller: "filter")
+			_ = try ts.sendMessage(chat_id: (String(logEntry.user.id)), text: liftedMessage, parse_mode: "HTML")
+			logEntry.excommunicated = false
+			logEntry.count = 0
+		})
+	}
+	
+	/// function that warns user specified in the log entry
+	open func warn(logEntry: inout (user: User, count: Int, excommunicated: Bool, excomCount: Int, reliefTime: Date)) throws {
+		
+		try autoreleasepool(invoking: {
+			let ts = Teleswift(token)
+			_ = try ts.sendMessage(chat_id: String(logEntry.user.id), text: warnMessage, parse_mode: "HTML")
+			verbosity("warned \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", enabled: logVerbosely, caller: #function)
+		})
+	}
+	
+	/// function that derives log entry from user ID
+	open func getLogEntryFromID(user_id: Int) -> (Bool, Int) {
+		for i in 0..<log.count {
+			if log[i].user.id == user_id {return (true, i)}
+		}
+		return (false, Int())
+	}
 }
