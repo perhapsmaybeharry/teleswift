@@ -24,7 +24,7 @@ open class Teleswift {
 		sf = SpamFilter(botToken: token)
 	}
 	
-	// the contents of this class are public and are used for interfacing the Framework with the Swift app.
+	// the contents of this class are open and are used for interfacing the Framework with the Swift app.
 	
 	/*
 	

@@ -15,11 +15,11 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>Build 381</string>
+	<string>Build 486</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2016 thisbetterwork. All rights reserved.</string>
 	<key>NSPrincipalClass</key>

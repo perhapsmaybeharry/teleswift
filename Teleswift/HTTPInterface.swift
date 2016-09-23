@@ -9,7 +9,7 @@
 import Foundation
 
 internal class HTTPInterface {
-	// the contents of this class are private and are used for interfacing the Framework with the HTTP API.
+	// the contents of this class are internal and are used for interfacing the Framework with the HTTP API.
 	// tg's http api can be queried through HTTP GET/POST requests in the following format:
 	// https://api.telegram.org/bot[token]/[method name]
 	
@@ -49,18 +49,21 @@ internal class HTTPInterface {
 		
 		return try autoreleasepool(invoking: { () -> JSON in
 		
-			var receivedData = Data()
+			var receivedData = String()
 			
 			if Reachability()?.currentReachabilityStatus == .notReachable {error("No Internet connection", enabled: logErrors, severity: .FATAL); throw apiError.noConnection}
 			
-			do {receivedData = try Data(contentsOf: self.synthesiseURL(tgMethod, arguments: arguments, caller: caller))} catch let err {if err.localizedDescription.contains("couldn’t be opened.") {error("Telegram API returned not OK", enabled: logErrors, severity: .FATAL); throw apiError.notOK}}
-		
-			let returnedData = try JSON(data: receivedData)
+			do {
+				receivedData = try String(contentsOf: self.synthesiseURL(tgMethod, arguments: arguments, caller: caller))
+			} catch let err {throw apiError.connectionFailed(withReason: err.localizedDescription)}
+			
+			let returnedData = try JSON(jsonString: receivedData)
 			
 			if try returnedData.bool("ok") == false && returnedData.containsAllOf(["error_code", "description"]).1 {
-				if try returnedData.int("error_code") == 401 && (try returnedData.string("description")) == "Unauthorized" {throw apiError.unauthorized}
+				error("Telegram API returned error: \(try returnedData.string("error_code")) - \(try returnedData.string("description").components(separatedBy: ": ").last!)", enabled: logErrors, severity: .SERIOUS)
+				try parseTgError(code: try returnedData.int("error_code"), desc: try returnedData.string("description").components(separatedBy: ": ").last!)
 			}
-			if try returnedData.bool("ok") == false {error("Telegram API returned not OK", enabled: logErrors, severity: .FATAL); throw apiError.notOK}
+//			if try returnedData.bool("ok") == false {error("Telegram API returned not OK", enabled: logErrors, severity: .FATAL); throw apiError.notOK}
 			
 			verbosity("received: \(returnedData)", enabled: logVerbosely, caller: "call for \(caller.components(separatedBy: "(").first!)")
 			

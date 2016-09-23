@@ -10,6 +10,12 @@ import Foundation
 
 open class SpamFilter {
 	
+	// Fancy-shmancy configurability.
+	/// Determines if the spam filter should warn spammers. This does not affect manual warn(_:) calls.
+	open var shouldWarn: Bool = true
+	/// Determines if the spam filter should block spammers. This does not affect manual excommunicate(_:) calls.
+	open var shouldExcom: Bool = true
+	
 	/// This log keeps track of the user IDs and their offences
 	open var log = [(user: User, count: Int, excommunicated: Bool, excomCount: Int, reliefTime: Date)]()
 	
@@ -35,14 +41,14 @@ open class SpamFilter {
 	open var secondThreshold: Int = 12
 	
 	/// Internal variables.
-	private var token: String
+	open var token: String
 	open var logVerbosely: Bool = true
 	
 	/// Default value initialiser
-	init(botToken: String, shouldLogVerbosely: Bool = true) {token = botToken; logVerbosely = shouldLogVerbosely}
+	public init(botToken: String, shouldLogVerbosely: Bool = true) {token = botToken; logVerbosely = shouldLogVerbosely}
 	
 	/// Specific-value initialiser
-	init(with_interval: Int, with_excomDuration: Double, with_firstThreshold: Int, with_secondThreshold: Int, botToken: String, shouldLogVerbosely: Bool = true) {
+	public init(with_interval: Int, with_excomDuration: Double, with_firstThreshold: Int, with_secondThreshold: Int, botToken: String, shouldLogVerbosely: Bool = true) {
 		interval = with_interval
 		excomDuration = with_excomDuration
 		firstThreshold = with_firstThreshold
@@ -114,11 +120,11 @@ open class SpamFilter {
 				// checks if any users have exceeded the thresholds
 				if log[i].count >= firstThreshold && log[i].count < secondThreshold && currentSession.contains(log[i].user) {
 					// warn
-					try warn(logEntry: &log[i])
+					if shouldWarn {try warn(logEntry: &log[i])}
 					
 				} else if log[i].count >= secondThreshold && log[i].excommunicated == false && currentSession.contains(log[i].user) {
 					// excommunicate!
-					try excommunicate(logEntry: &log[i])
+					if shouldExcom {try excommunicate(logEntry: &log[i])}
 				}
 			}
 			
