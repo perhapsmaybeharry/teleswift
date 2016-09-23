@@ -1,0 +1,10 @@
+framework module Teleswift {
+  umbrella header "Teleswift.h"
+
+  export *
+  module * { export * }
+}
+
+module Teleswift.Swift {
+    header "Teleswift-Swift.h"
+}
