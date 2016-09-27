@@ -8,10 +8,18 @@
 
 import Foundation
 
-public func verbosity(_ message: String, enabled: Bool, caller: String = #function.components(separatedBy: "(").first!) {if enabled {print("[\(caller)] \(message)")}}
+public var latestConsoleOutput: String = String()
+
+public func verbosity(_ message: String, enabled: Bool, caller: String = #function.components(separatedBy: "(").first!) {
+	latestConsoleOutput = "[\(caller)] \(message)"
+	if enabled {print(latestConsoleOutput)}
+}
 
 public enum errorSeverity: String {case STANDARD; case UNKNOWN; case SERIOUS; case FATAL}
-public func error(_ message: String, enabled: Bool, severity: errorSeverity = .STANDARD, caller: String = #function.components(separatedBy: "(").first!) {if enabled {print("[ERROR/\(severity)] \(message)")}}
+public func error(_ message: String, enabled: Bool, severity: errorSeverity = .STANDARD, caller: String = #function.components(separatedBy: "(").first!) {
+	latestConsoleOutput = "[ERROR/\(severity)] \(message)"
+	if enabled {print(latestConsoleOutput)}
+}
 
 /// Various errors thrown from the API (HTTPInterface.swift).
 public enum apiError: Error {

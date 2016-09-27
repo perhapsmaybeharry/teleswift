@@ -12,8 +12,6 @@ You can download the precompiled framework from GitHub under the name `Teleswift
 
 Add the framework to your Xcode target's "Embedded Binaries" or "Linked Frameworks" list under Project > [Target] > Build Phases.
 
-
-
 ## Example usage
 
 ### Defining an instance of Teleswift
@@ -44,4 +42,4 @@ let updateID = updates.update_id
 - OS X 10.10 (Swift support)
 
 ## License
-Teleswift is licensed under the **MIT License**. Accreditation is required where Teleswift is used.
+Teleswift is licensed under the **MIT License**. Accreditation is appreciated where Teleswift is used.
