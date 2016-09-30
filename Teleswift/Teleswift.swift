@@ -6,22 +6,23 @@
 //  Copyright © 2016 thisbetterwork. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 open class Teleswift {
 	
-	open var logVerbosely: Bool {
-		didSet {http.logVerbosely = self.logVerbosely; sf.logVerbosely = self.logVerbosely}}
-	open var logErrors: Bool {didSet {http.logErrors = self.logErrors}}
-	fileprivate var token: String
-	fileprivate var http: HTTPInterface
+	open var outputLimit: Int = 256
+	open var console: Console
+	
+	internal var token: String
+	private var http: HTTPInterface
 	open var sf: SpamFilter
-	public init (_ botToken: String, shouldLogVerbosely: Bool = true, shouldLogErrors: Bool = true) {
+	public init (_ botToken: String, shouldLogVerbosely: Bool = true, shouldLogErrors: Bool = true, toTextView: NSTextView? = nil) {
 		token = botToken
-		logVerbosely = shouldLogVerbosely
-		logErrors = shouldLogErrors
-		http = HTTPInterface(botToken: token)
-		sf = SpamFilter(botToken: token)
+		console = Console(with_outputLimit: outputLimit, with_textView: toTextView, shouldLogVerbosely: shouldLogVerbosely, shouldLogErrors: shouldLogErrors)
+		http = HTTPInterface(botToken: token, toConsole: console)
+		sf = SpamFilter(botToken: token, toConsole: console)
+//		http.parentTS = self
+//		sf.parentTS = self
 	}
 	
 	// the contents of this class are open and are used for interfacing the Framework with the Swift app.
@@ -340,11 +341,11 @@ open class Teleswift {
 	
 	open func clearUpdates(_ last_id: Int) throws {
 		return try autoreleasepool(invoking: { () in
-			let previousLogStatus = logVerbosely
-			logVerbosely = false
+			let previousLogStatus = self.console.logVerbosely
+			self.console.logVerbosely = false
 			_=try getUpdates(offset: last_id+1)
-			logVerbosely = previousLogStatus
-			verbosity("cleared updates", enabled: logVerbosely, caller: #function.components(separatedBy: "(").first!)
+			self.console.logVerbosely = previousLogStatus
+			self.console.verbosity("cleared updates", caller: "clearUpdates")
 		})
 	}
 	

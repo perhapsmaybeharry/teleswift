@@ -43,18 +43,20 @@ open class SpamFilter {
 	/// Internal variables.
 	open var token: String
 	open var logVerbosely: Bool = true
+	internal var console: Console
 	
 	/// Default value initialiser
-	public init(botToken: String, shouldLogVerbosely: Bool = true) {token = botToken; logVerbosely = shouldLogVerbosely}
+	public init(botToken: String, shouldLogVerbosely: Bool = true, toConsole: Console) {token = botToken; logVerbosely = shouldLogVerbosely; console = toConsole}
 	
 	/// Specific-value initialiser
-	public init(with_interval: Int, with_excomDuration: Double, with_firstThreshold: Int, with_secondThreshold: Int, botToken: String, shouldLogVerbosely: Bool = true) {
+	public init(with_interval: Int, with_excomDuration: Double, with_firstThreshold: Int, with_secondThreshold: Int, botToken: String, shouldLogVerbosely: Bool = true, toConsole: Console) {
 		interval = with_interval
 		excomDuration = with_excomDuration
 		firstThreshold = with_firstThreshold
 		secondThreshold = with_secondThreshold
 		token = botToken
 		logVerbosely = shouldLogVerbosely
+		console = toConsole
 	}
 	
 	open func filter(_ toFilter: [Update]) throws -> [Update] {
@@ -130,7 +132,7 @@ open class SpamFilter {
 			
 			try checkForExcomLift()
 			
-			verbosity("unfiltered: \(toFilter.count); filtered: \(filtered.count)", enabled: logVerbosely, caller: #function)
+			console.verbosity("unfiltered: \(toFilter.count); filtered: \(filtered.count)", caller: #function)
 			return filtered
 			
 		})
@@ -158,7 +160,7 @@ open class SpamFilter {
 			logEntry.excommunicated = true
 			logEntry.excomCount += 1
 			logEntry.reliefTime = Date().addingTimeInterval(TimeInterval(pow(excomDuration, Double(logEntry.excomCount))*60))
-			verbosity("excommunicated \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", enabled: logVerbosely, caller: #function)
+			console.verbosity("excommunicated \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", caller: #function)
 			_ = try ts.sendMessage(chat_id: String(logEntry.user.id), text: "\(excomMessage)\n\nYour excommunication will last <strong>\(pow(excomDuration, Double(logEntry.excomCount))) minute(s)</strong> and be lifted on <strong>\(logEntry.reliefTime) UTC</strong>.\n\nThe time now is <strong>\(Date()) UTC</strong>.", parse_mode: "HTML")
 		})
 	}
@@ -167,7 +169,7 @@ open class SpamFilter {
 	open func unexcommunicate(logEntry: inout (user: User, count: Int, excommunicated: Bool, excomCount: Int, reliefTime: Date)) throws {
 		try autoreleasepool(invoking: {
 			let ts = Teleswift(token)
-			verbosity("un-excommunicated \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", enabled: logVerbosely, caller: "filter")
+			console.verbosity("un-excommunicated \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", caller: "filter")
 			_ = try ts.sendMessage(chat_id: (String(logEntry.user.id)), text: liftedMessage, parse_mode: "HTML")
 			logEntry.excommunicated = false
 			logEntry.count = 0
@@ -180,7 +182,7 @@ open class SpamFilter {
 		try autoreleasepool(invoking: {
 			let ts = Teleswift(token)
 			_ = try ts.sendMessage(chat_id: String(logEntry.user.id), text: warnMessage, parse_mode: "HTML")
-			verbosity("warned \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", enabled: logVerbosely, caller: #function)
+			console.verbosity("warned \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", caller: #function)
 		})
 	}
 	

@@ -7,18 +7,15 @@
 //
 
 import Foundation
+import Cocoa
 
-public var latestConsoleOutput: String = String()
 
-public func verbosity(_ message: String, enabled: Bool, caller: String = #function.components(separatedBy: "(").first!) {
-	latestConsoleOutput = "[\(caller)] \(message)"
-	if enabled {print(latestConsoleOutput)}
-}
-
-public enum errorSeverity: String {case STANDARD; case UNKNOWN; case SERIOUS; case FATAL}
-public func error(_ message: String, enabled: Bool, severity: errorSeverity = .STANDARD, caller: String = #function.components(separatedBy: "(").first!) {
-	latestConsoleOutput = "[ERROR/\(severity)] \(message)"
-	if enabled {print(latestConsoleOutput)}
+/// Various levels of severity that can be thrown by Teleswift.
+public enum errorSeverity: String {
+	case STANDARD
+	case UNKNOWN
+	case SERIOUS
+	case FATAL
 }
 
 /// Various errors thrown from the API (HTTPInterface.swift).
@@ -31,6 +28,7 @@ public enum apiError: Error {
 	case unknown(error: String)
 }
 
+/// Various errors thrown from the Telegram API.
 public enum tgError: Error {
 	// 400
 	case method_not_found // generic
@@ -106,4 +104,53 @@ internal extension JSON {
 			return (matches, false)
 		} else {return (matches, true)}
 	}
+}
+
+public class Console {
+	open var log: [String]
+	open var outputLimit: Int
+	open var textView: NSTextView?
+	open var logVerbosely: Bool = true
+	open var logErrors: Bool = true
+	
+	public init(with_outputLimit: Int = 256, with_textView: NSTextView? = nil, shouldLogVerbosely: Bool = true, shouldLogErrors: Bool = true) {
+		log = [String]()
+		outputLimit = with_outputLimit
+		textView = with_textView
+		logVerbosely = shouldLogVerbosely
+		logErrors = shouldLogErrors
+	}
+	
+	/// Function to log verbosely.
+	internal func verbosity(_ message: String, caller: String = #function.components(separatedBy: "(").first!) {
+		if log.count > outputLimit {log = Array(log[(log.count-(outputLimit+1))..<(log.count)])}
+		log.append("[\(caller)] \(message)")
+		if logVerbosely {print(log.last!); if textView != nil {DispatchQueue.main.async{self.textView?.xlog(self.log.last!)}}}
+	}
+	
+	/// Function to log errors with variable levels of severity.
+	internal func error(_ message: String, severity: errorSeverity = .STANDARD, caller: String = #function.components(separatedBy: "(").first!) {
+		if log.count > outputLimit {log.removeFirst()}
+		log.append("[ERROR/\(severity)] \(message)")
+		if logErrors {print(log.last!); if textView != nil {DispatchQueue.main.async{self.textView?.xlog(self.log.last!)}}}
+	}
+	
+	open func clear() {log = [String]()}
+	
+}
+
+public extension NSTextView {
+	public func appendText(_ line: String) {
+		DispatchQueue.main.async {
+			let astring = NSAttributedString(string: "\(line)\n", attributes: nil)
+			self.textStorage?.append(astring)
+			
+			self.scrollToEndOfDocument(self)
+//			let loc = self.string?.lengthOfBytes(using: String.Encoding.utf8)
+			
+//			let range = NSRange(location: loc!, length: 0)
+//			self.scrollRangeToVisible(range)
+		}
+	}
+	public func xlog(_ line: String) {self.appendText(line)}
 }
