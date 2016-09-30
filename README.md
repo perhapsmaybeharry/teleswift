@@ -16,7 +16,7 @@ Add the framework to your Xcode target's "Embedded Binaries" or "Linked Framewor
 
 ### Defining an instance of Teleswift
 Teleswift can be defined just as any other class in Swift would be. Initialising the class requires the bot token.
-```
+```Swift
 import Teleswift
 
 let token = <your bot token here>
@@ -25,13 +25,13 @@ let ts = Teleswift(token)
 
 ### Calling a method
 Calling methods in Teleswift is as natural as calling `print()`. Simply call the method you wish to call from the Teleswift instance you have created.
-```
+```Swift
 print(ts.getMe().username) // prints the username of your bot
 ```
 
 ### Getting and accessing updates
 Accessing updates in Swift is simple. The method used to receive updates is `getUpdates()`, and returns an array of `Update` objects. These `Update` objects contain information like the update ID, the `Message` that was sent and if any, an edited `Message`.
-```
+```Swift
 let updates: [Update] = ts.getUpdates() // returns an array of Update objects in native Teleswift types.
 let senderOfMessage = updates.message.from.id
 let updateID = updates.update_id
