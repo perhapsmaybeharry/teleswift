@@ -8,36 +8,70 @@
 
 /* Begin PBXBuildFile section */
 		4A0C07DB1D829BCA00E34BD0 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D21D829BCA00E34BD0 /* JSON.swift */; };
-		4A0C07DC1D829BCA00E34BD0 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D21D829BCA00E34BD0 /* JSON.swift */; };
 		4A0C07DD1D829BCA00E34BD0 /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D31D829BCA00E34BD0 /* JSONDecodable.swift */; };
-		4A0C07DE1D829BCA00E34BD0 /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D31D829BCA00E34BD0 /* JSONDecodable.swift */; };
 		4A0C07DF1D829BCA00E34BD0 /* JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D41D829BCA00E34BD0 /* JSONEncodable.swift */; };
-		4A0C07E01D829BCA00E34BD0 /* JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D41D829BCA00E34BD0 /* JSONEncodable.swift */; };
 		4A0C07E11D829BCA00E34BD0 /* JSONLiteralConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D51D829BCA00E34BD0 /* JSONLiteralConvertible.swift */; };
-		4A0C07E21D829BCA00E34BD0 /* JSONLiteralConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D51D829BCA00E34BD0 /* JSONLiteralConvertible.swift */; };
 		4A0C07E31D829BCA00E34BD0 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D61D829BCA00E34BD0 /* JSONParser.swift */; };
-		4A0C07E41D829BCA00E34BD0 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D61D829BCA00E34BD0 /* JSONParser.swift */; };
 		4A0C07E51D829BCA00E34BD0 /* JSONParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D71D829BCA00E34BD0 /* JSONParsing.swift */; };
-		4A0C07E61D829BCA00E34BD0 /* JSONParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D71D829BCA00E34BD0 /* JSONParsing.swift */; };
 		4A0C07E71D829BCA00E34BD0 /* JSONSerializing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D81D829BCA00E34BD0 /* JSONSerializing.swift */; };
-		4A0C07E81D829BCA00E34BD0 /* JSONSerializing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D81D829BCA00E34BD0 /* JSONSerializing.swift */; };
 		4A0C07E91D829BCA00E34BD0 /* JSONSubscripting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D91D829BCA00E34BD0 /* JSONSubscripting.swift */; };
-		4A0C07EA1D829BCA00E34BD0 /* JSONSubscripting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D91D829BCA00E34BD0 /* JSONSubscripting.swift */; };
 		4A0C07EB1D829BCA00E34BD0 /* JSONEncodingDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07DA1D829BCA00E34BD0 /* JSONEncodingDetector.swift */; };
-		4A0C07EC1D829BCA00E34BD0 /* JSONEncodingDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07DA1D829BCA00E34BD0 /* JSONEncodingDetector.swift */; };
-		4A0C07EE1D829BEC00E34BD0 /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF6A1D68BFC700C4D593 /* classes.swift */; };
+		4A0DD9951D99012B006F8386 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0DD9941D99012B006F8386 /* AppDelegate.swift */; };
+		4A0DD9971D99012B006F8386 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0DD9961D99012B006F8386 /* ViewController.swift */; };
+		4A0DD9991D99012B006F8386 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A0DD9981D99012B006F8386 /* Assets.xcassets */; };
+		4A0DD99C1D99012B006F8386 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A0DD99A1D99012B006F8386 /* Main.storyboard */; };
 		4A42D89B1D52EE0B002F3A60 /* Teleswift.h in Headers */ = {isa = PBXBuildFile; fileRef = 4A42D89A1D52EE0B002F3A60 /* Teleswift.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		4A42D8DB1D532064002F3A60 /* HTTPInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A42D8A21D52EE2E002F3A60 /* HTTPInterface.swift */; };
 		4A42D9091D5359E5002F3A60 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A42D9081D5359E5002F3A60 /* main.swift */; };
-		4A42D90D1D535A29002F3A60 /* HTTPInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A42D8A21D52EE2E002F3A60 /* HTTPInterface.swift */; };
-		4A8BCF651D675E5A00C4D593 /* Teleswift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF641D675E5A00C4D593 /* Teleswift.swift */; };
-		4A8BCF661D675E6800C4D593 /* Teleswift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF641D675E5A00C4D593 /* Teleswift.swift */; };
-		4A8BCF681D675E8400C4D593 /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF671D675E8400C4D593 /* global.swift */; };
-		4A8BCF691D675EA300C4D593 /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF671D675E8400C4D593 /* global.swift */; };
-		4A8BCF6B1D68BFC700C4D593 /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF6A1D68BFC700C4D593 /* classes.swift */; };
-		4AAF3AF21D80607600E442D0 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAF3AF11D80607600E442D0 /* Reachability.swift */; };
-		4AAF3AF31D80607E00E442D0 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAF3AF11D80607600E442D0 /* Reachability.swift */; };
+		4A44E7AA1D94BEBD003D8AFF /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAF3AF11D80607600E442D0 /* Reachability.swift */; };
+		4A44E7AB1D94BEBD003D8AFF /* HTTPInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A42D8A21D52EE2E002F3A60 /* HTTPInterface.swift */; };
+		4A44E7AC1D94BEBD003D8AFF /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF671D675E8400C4D593 /* global.swift */; };
+		4A44E7AD1D94BEBD003D8AFF /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF6A1D68BFC700C4D593 /* classes.swift */; };
+		4A44E7AE1D94BEBD003D8AFF /* Teleswift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF641D675E5A00C4D593 /* Teleswift.swift */; };
+		4A44E7AF1D94BEBD003D8AFF /* SpamFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A68AA291D8FB98500F3E0F2 /* SpamFilter.swift */; };
+		4A60EFE81D94C9BF001BFBFF /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D21D829BCA00E34BD0 /* JSON.swift */; };
+		4A60EFE91D94C9BF001BFBFF /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D31D829BCA00E34BD0 /* JSONDecodable.swift */; };
+		4A60EFEA1D94C9BF001BFBFF /* JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D41D829BCA00E34BD0 /* JSONEncodable.swift */; };
+		4A60EFEB1D94C9BF001BFBFF /* JSONLiteralConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D51D829BCA00E34BD0 /* JSONLiteralConvertible.swift */; };
+		4A60EFEC1D94C9BF001BFBFF /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D61D829BCA00E34BD0 /* JSONParser.swift */; };
+		4A60EFED1D94C9BF001BFBFF /* JSONParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D71D829BCA00E34BD0 /* JSONParsing.swift */; };
+		4A60EFEE1D94C9BF001BFBFF /* JSONSerializing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D81D829BCA00E34BD0 /* JSONSerializing.swift */; };
+		4A60EFEF1D94C9BF001BFBFF /* JSONSubscripting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D91D829BCA00E34BD0 /* JSONSubscripting.swift */; };
+		4A60EFF01D94C9BF001BFBFF /* JSONEncodingDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07DA1D829BCA00E34BD0 /* JSONEncodingDetector.swift */; };
+		4A60EFF11D94C9BF001BFBFF /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAF3AF11D80607600E442D0 /* Reachability.swift */; };
+		4A60EFF21D94C9BF001BFBFF /* HTTPInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A42D8A21D52EE2E002F3A60 /* HTTPInterface.swift */; };
+		4A60EFF31D94C9BF001BFBFF /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF671D675E8400C4D593 /* global.swift */; };
+		4A60EFF41D94C9BF001BFBFF /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF6A1D68BFC700C4D593 /* classes.swift */; };
+		4A60EFF51D94C9BF001BFBFF /* Teleswift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF641D675E5A00C4D593 /* Teleswift.swift */; };
+		4A60EFF61D94C9BF001BFBFF /* SpamFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A68AA291D8FB98500F3E0F2 /* SpamFilter.swift */; };
+		4A60EFF71D94C9C2001BFBFF /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D21D829BCA00E34BD0 /* JSON.swift */; };
+		4A60EFF81D94C9C2001BFBFF /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D31D829BCA00E34BD0 /* JSONDecodable.swift */; };
+		4A60EFF91D94C9C2001BFBFF /* JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D41D829BCA00E34BD0 /* JSONEncodable.swift */; };
+		4A60EFFA1D94C9C2001BFBFF /* JSONLiteralConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D51D829BCA00E34BD0 /* JSONLiteralConvertible.swift */; };
+		4A60EFFB1D94C9C2001BFBFF /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D61D829BCA00E34BD0 /* JSONParser.swift */; };
+		4A60EFFC1D94C9C2001BFBFF /* JSONParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D71D829BCA00E34BD0 /* JSONParsing.swift */; };
+		4A60EFFD1D94C9C2001BFBFF /* JSONSerializing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D81D829BCA00E34BD0 /* JSONSerializing.swift */; };
+		4A60EFFE1D94C9C2001BFBFF /* JSONSubscripting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07D91D829BCA00E34BD0 /* JSONSubscripting.swift */; };
+		4A60EFFF1D94C9C2001BFBFF /* JSONEncodingDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0C07DA1D829BCA00E34BD0 /* JSONEncodingDetector.swift */; };
+		4A60F0001D94C9C2001BFBFF /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AAF3AF11D80607600E442D0 /* Reachability.swift */; };
+		4A60F0011D94C9C2001BFBFF /* HTTPInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A42D8A21D52EE2E002F3A60 /* HTTPInterface.swift */; };
+		4A60F0021D94C9C2001BFBFF /* global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF671D675E8400C4D593 /* global.swift */; };
+		4A60F0031D94C9C2001BFBFF /* classes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF6A1D68BFC700C4D593 /* classes.swift */; };
+		4A60F0041D94C9C2001BFBFF /* Teleswift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8BCF641D675E5A00C4D593 /* Teleswift.swift */; };
+		4A60F0051D94C9C2001BFBFF /* SpamFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A68AA291D8FB98500F3E0F2 /* SpamFilter.swift */; };
+		4A8924A61D8BE36E005DCB4A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A8924A51D8BE36E005DCB4A /* main.swift */; };
+		4AE6A59E1DA541E600E201EF /* Teleswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A42D8971D52EE0B002F3A60 /* Teleswift.framework */; };
+		4AE6A59F1DA541E600E201EF /* Teleswift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A42D8971D52EE0B002F3A60 /* Teleswift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4AE6A5A01DA541E600E201EF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A42D88E1D52EE0B002F3A60 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4A42D8961D52EE0B002F3A60;
+			remoteInfo = Teleswift;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4A42D9041D5359E5002F3A60 /* CopyFiles */ = {
@@ -49,33 +83,70 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		4A8924A11D8BE36E005DCB4A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		4AE6A5A21DA541E600E201EF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4AE6A59F1DA541E600E201EF /* Teleswift.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4A0C07D21D829BCA00E34BD0 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
-		4A0C07D31D829BCA00E34BD0 /* JSONDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecodable.swift; sourceTree = "<group>"; };
-		4A0C07D41D829BCA00E34BD0 /* JSONEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONEncodable.swift; sourceTree = "<group>"; };
-		4A0C07D51D829BCA00E34BD0 /* JSONLiteralConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONLiteralConvertible.swift; sourceTree = "<group>"; };
-		4A0C07D61D829BCA00E34BD0 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
-		4A0C07D71D829BCA00E34BD0 /* JSONParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParsing.swift; sourceTree = "<group>"; };
-		4A0C07D81D829BCA00E34BD0 /* JSONSerializing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSerializing.swift; sourceTree = "<group>"; };
-		4A0C07D91D829BCA00E34BD0 /* JSONSubscripting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONSubscripting.swift; sourceTree = "<group>"; };
-		4A0C07DA1D829BCA00E34BD0 /* JSONEncodingDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONEncodingDetector.swift; sourceTree = "<group>"; };
+		4A0C07D21D829BCA00E34BD0 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = "External Frameworks/Freddy JSON/JSON.swift"; sourceTree = "<group>"; };
+		4A0C07D31D829BCA00E34BD0 /* JSONDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONDecodable.swift; path = "External Frameworks/Freddy JSON/JSONDecodable.swift"; sourceTree = "<group>"; };
+		4A0C07D41D829BCA00E34BD0 /* JSONEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONEncodable.swift; path = "External Frameworks/Freddy JSON/JSONEncodable.swift"; sourceTree = "<group>"; };
+		4A0C07D51D829BCA00E34BD0 /* JSONLiteralConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONLiteralConvertible.swift; path = "External Frameworks/Freddy JSON/JSONLiteralConvertible.swift"; sourceTree = "<group>"; };
+		4A0C07D61D829BCA00E34BD0 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONParser.swift; path = "External Frameworks/Freddy JSON/JSONParser.swift"; sourceTree = "<group>"; };
+		4A0C07D71D829BCA00E34BD0 /* JSONParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONParsing.swift; path = "External Frameworks/Freddy JSON/JSONParsing.swift"; sourceTree = "<group>"; };
+		4A0C07D81D829BCA00E34BD0 /* JSONSerializing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONSerializing.swift; path = "External Frameworks/Freddy JSON/JSONSerializing.swift"; sourceTree = "<group>"; };
+		4A0C07D91D829BCA00E34BD0 /* JSONSubscripting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONSubscripting.swift; path = "External Frameworks/Freddy JSON/JSONSubscripting.swift"; sourceTree = "<group>"; };
+		4A0C07DA1D829BCA00E34BD0 /* JSONEncodingDetector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONEncodingDetector.swift; path = "External Frameworks/Freddy JSON/JSONEncodingDetector.swift"; sourceTree = "<group>"; };
+		4A0DD9921D99012B006F8386 /* teleswift-test-gui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "teleswift-test-gui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A0DD9941D99012B006F8386 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4A0DD9961D99012B006F8386 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4A0DD9981D99012B006F8386 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4A0DD99B1D99012B006F8386 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4A0DD99D1D99012B006F8386 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A0F73071D6ABB2800EDCBBF /* teleswift.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = teleswift.png; sourceTree = "<group>"; };
-		4A2062671D54294E00E65951 /* To-Do List */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = "To-Do List"; path = "Teleswift/To-Do List"; sourceTree = "<group>"; };
+		4A23C4FF1D95174C005F6C10 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		4A42D8971D52EE0B002F3A60 /* Teleswift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Teleswift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A42D89A1D52EE0B002F3A60 /* Teleswift.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Teleswift.h; sourceTree = "<group>"; };
 		4A42D89C1D52EE0B002F3A60 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4A42D8A21D52EE2E002F3A60 /* HTTPInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPInterface.swift; sourceTree = "<group>"; };
 		4A42D9061D5359E5002F3A60 /* teleswift-test-bot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "teleswift-test-bot"; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A42D9081D5359E5002F3A60 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		4A68AA291D8FB98500F3E0F2 /* SpamFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpamFilter.swift; sourceTree = "<group>"; };
+		4A8924A31D8BE36E005DCB4A /* spam_bot */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = spam_bot; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A8924A51D8BE36E005DCB4A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		4A8BCF641D675E5A00C4D593 /* Teleswift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Teleswift.swift; sourceTree = "<group>"; };
 		4A8BCF671D675E8400C4D593 /* global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = global.swift; sourceTree = "<group>"; };
 		4A8BCF6A1D68BFC700C4D593 /* classes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = classes.swift; sourceTree = "<group>"; };
-		4AAF3AF11D80607600E442D0 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
+		4AAF3AF11D80607600E442D0 /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = "External Frameworks/Reachability.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4A0DD98F1D99012B006F8386 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4AE6A59E1DA541E600E201EF /* Teleswift.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A42D8931D52EE0B002F3A60 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -84,6 +155,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		4A42D9031D5359E5002F3A60 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A8924A01D8BE36E005DCB4A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -109,6 +187,18 @@
 			name = Freddy;
 			sourceTree = "<group>";
 		};
+		4A0DD9931D99012B006F8386 /* teleswift-test-gui */ = {
+			isa = PBXGroup;
+			children = (
+				4A0DD9941D99012B006F8386 /* AppDelegate.swift */,
+				4A0DD9961D99012B006F8386 /* ViewController.swift */,
+				4A0DD9981D99012B006F8386 /* Assets.xcassets */,
+				4A0DD99A1D99012B006F8386 /* Main.storyboard */,
+				4A0DD99D1D99012B006F8386 /* Info.plist */,
+			);
+			path = "teleswift-test-gui";
+			sourceTree = "<group>";
+		};
 		4A1C68681D8293A90091E722 /* External Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -121,10 +211,12 @@
 		4A42D88D1D52EE0B002F3A60 = {
 			isa = PBXGroup;
 			children = (
-				4A2062671D54294E00E65951 /* To-Do List */,
 				4A0F73071D6ABB2800EDCBBF /* teleswift.png */,
+				4A23C4FF1D95174C005F6C10 /* README.md */,
 				4A42D8991D52EE0B002F3A60 /* Teleswift */,
 				4A42D9071D5359E5002F3A60 /* teleswift-test-bot */,
+				4A8924A41D8BE36E005DCB4A /* spam_bot */,
+				4A0DD9931D99012B006F8386 /* teleswift-test-gui */,
 				4A42D8981D52EE0B002F3A60 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -134,6 +226,8 @@
 			children = (
 				4A42D8971D52EE0B002F3A60 /* Teleswift.framework */,
 				4A42D9061D5359E5002F3A60 /* teleswift-test-bot */,
+				4A8924A31D8BE36E005DCB4A /* spam_bot */,
+				4A0DD9921D99012B006F8386 /* teleswift-test-gui.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,10 +237,11 @@
 			children = (
 				4A42D89A1D52EE0B002F3A60 /* Teleswift.h */,
 				4A1C68681D8293A90091E722 /* External Frameworks */,
-				4A42D8A21D52EE2E002F3A60 /* HTTPInterface.swift */,
 				4A8BCF671D675E8400C4D593 /* global.swift */,
 				4A8BCF6A1D68BFC700C4D593 /* classes.swift */,
+				4A42D8A21D52EE2E002F3A60 /* HTTPInterface.swift */,
 				4A8BCF641D675E5A00C4D593 /* Teleswift.swift */,
+				4A68AA291D8FB98500F3E0F2 /* SpamFilter.swift */,
 				4A42D89C1D52EE0B002F3A60 /* Info.plist */,
 			);
 			path = Teleswift;
@@ -158,6 +253,14 @@
 				4A42D9081D5359E5002F3A60 /* main.swift */,
 			);
 			path = "teleswift-test-bot";
+			sourceTree = "<group>";
+		};
+		4A8924A41D8BE36E005DCB4A /* spam_bot */ = {
+			isa = PBXGroup;
+			children = (
+				4A8924A51D8BE36E005DCB4A /* main.swift */,
+			);
+			path = spam_bot;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +277,25 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		4A0DD9911D99012B006F8386 /* teleswift-test-gui */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A0DD99E1D99012B006F8386 /* Build configuration list for PBXNativeTarget "teleswift-test-gui" */;
+			buildPhases = (
+				4A0DD98E1D99012B006F8386 /* Sources */,
+				4A0DD98F1D99012B006F8386 /* Frameworks */,
+				4A0DD9901D99012B006F8386 /* Resources */,
+				4AE6A5A21DA541E600E201EF /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4AE6A5A11DA541E600E201EF /* PBXTargetDependency */,
+			);
+			name = "teleswift-test-gui";
+			productName = "teleswift-test-gui";
+			productReference = 4A0DD9921D99012B006F8386 /* teleswift-test-gui.app */;
+			productType = "com.apple.product-type.application";
+		};
 		4A42D8961D52EE0B002F3A60 /* Teleswift */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4A42D89F1D52EE0B002F3A60 /* Build configuration list for PBXNativeTarget "Teleswift" */;
@@ -209,16 +331,37 @@
 			productReference = 4A42D9061D5359E5002F3A60 /* teleswift-test-bot */;
 			productType = "com.apple.product-type.tool";
 		};
+		4A8924A21D8BE36E005DCB4A /* spam_bot */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A8924A91D8BE36E005DCB4A /* Build configuration list for PBXNativeTarget "spam_bot" */;
+			buildPhases = (
+				4A89249F1D8BE36E005DCB4A /* Sources */,
+				4A8924A01D8BE36E005DCB4A /* Frameworks */,
+				4A8924A11D8BE36E005DCB4A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = spam_bot;
+			productName = spam_bot;
+			productReference = 4A8924A31D8BE36E005DCB4A /* spam_bot */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		4A42D88E1D52EE0B002F3A60 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0800;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = thisbetterwork;
 				TargetAttributes = {
+					4A0DD9911D99012B006F8386 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
 					4A42D8961D52EE0B002F3A60 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0800;
@@ -226,6 +369,10 @@
 					4A42D9051D5359E5002F3A60 = {
 						CreatedOnToolsVersion = 7.3.1;
 						LastSwiftMigration = 0800;
+					};
+					4A8924A21D8BE36E005DCB4A = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -244,11 +391,22 @@
 			targets = (
 				4A42D8961D52EE0B002F3A60 /* Teleswift */,
 				4A42D9051D5359E5002F3A60 /* teleswift-test-bot */,
+				4A8924A21D8BE36E005DCB4A /* spam_bot */,
+				4A0DD9911D99012B006F8386 /* teleswift-test-gui */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4A0DD9901D99012B006F8386 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A0DD9991D99012B006F8386 /* Assets.xcassets in Resources */,
+				4A0DD99C1D99012B006F8386 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A42D8951D52EE0B002F3A60 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -259,24 +417,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4A0DD98E1D99012B006F8386 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A0DD9971D99012B006F8386 /* ViewController.swift in Sources */,
+				4A0DD9951D99012B006F8386 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4A42D8921D52EE0B002F3A60 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A42D8DB1D532064002F3A60 /* HTTPInterface.swift in Sources */,
+				4A44E7AC1D94BEBD003D8AFF /* global.swift in Sources */,
 				4A0C07DB1D829BCA00E34BD0 /* JSON.swift in Sources */,
 				4A0C07E91D829BCA00E34BD0 /* JSONSubscripting.swift in Sources */,
-				4A8BCF651D675E5A00C4D593 /* Teleswift.swift in Sources */,
+				4A44E7AB1D94BEBD003D8AFF /* HTTPInterface.swift in Sources */,
 				4A0C07EB1D829BCA00E34BD0 /* JSONEncodingDetector.swift in Sources */,
 				4A0C07E31D829BCA00E34BD0 /* JSONParser.swift in Sources */,
+				4A44E7AD1D94BEBD003D8AFF /* classes.swift in Sources */,
 				4A0C07E71D829BCA00E34BD0 /* JSONSerializing.swift in Sources */,
+				4A44E7AF1D94BEBD003D8AFF /* SpamFilter.swift in Sources */,
 				4A0C07DD1D829BCA00E34BD0 /* JSONDecodable.swift in Sources */,
-				4A8BCF6B1D68BFC700C4D593 /* classes.swift in Sources */,
 				4A0C07E51D829BCA00E34BD0 /* JSONParsing.swift in Sources */,
 				4A0C07E11D829BCA00E34BD0 /* JSONLiteralConvertible.swift in Sources */,
-				4AAF3AF21D80607600E442D0 /* Reachability.swift in Sources */,
-				4A8BCF681D675E8400C4D593 /* global.swift in Sources */,
+				4A44E7AA1D94BEBD003D8AFF /* Reachability.swift in Sources */,
 				4A0C07DF1D829BCA00E34BD0 /* JSONEncodable.swift in Sources */,
+				4A44E7AE1D94BEBD003D8AFF /* Teleswift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,27 +452,103 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A8BCF691D675EA300C4D593 /* global.swift in Sources */,
-				4A0C07DC1D829BCA00E34BD0 /* JSON.swift in Sources */,
-				4A0C07EA1D829BCA00E34BD0 /* JSONSubscripting.swift in Sources */,
+				4A60F0031D94C9C2001BFBFF /* classes.swift in Sources */,
+				4A60EFFA1D94C9C2001BFBFF /* JSONLiteralConvertible.swift in Sources */,
+				4A60F0051D94C9C2001BFBFF /* SpamFilter.swift in Sources */,
+				4A60EFF81D94C9C2001BFBFF /* JSONDecodable.swift in Sources */,
+				4A60EFFB1D94C9C2001BFBFF /* JSONParser.swift in Sources */,
+				4A60EFFD1D94C9C2001BFBFF /* JSONSerializing.swift in Sources */,
+				4A60EFFF1D94C9C2001BFBFF /* JSONEncodingDetector.swift in Sources */,
+				4A60F0021D94C9C2001BFBFF /* global.swift in Sources */,
+				4A60EFF91D94C9C2001BFBFF /* JSONEncodable.swift in Sources */,
 				4A42D9091D5359E5002F3A60 /* main.swift in Sources */,
-				4A0C07EC1D829BCA00E34BD0 /* JSONEncodingDetector.swift in Sources */,
-				4A0C07E41D829BCA00E34BD0 /* JSONParser.swift in Sources */,
-				4A0C07E81D829BCA00E34BD0 /* JSONSerializing.swift in Sources */,
-				4A0C07DE1D829BCA00E34BD0 /* JSONDecodable.swift in Sources */,
-				4A42D90D1D535A29002F3A60 /* HTTPInterface.swift in Sources */,
-				4A0C07EE1D829BEC00E34BD0 /* classes.swift in Sources */,
-				4A0C07E61D829BCA00E34BD0 /* JSONParsing.swift in Sources */,
-				4A0C07E21D829BCA00E34BD0 /* JSONLiteralConvertible.swift in Sources */,
-				4AAF3AF31D80607E00E442D0 /* Reachability.swift in Sources */,
-				4A8BCF661D675E6800C4D593 /* Teleswift.swift in Sources */,
-				4A0C07E01D829BCA00E34BD0 /* JSONEncodable.swift in Sources */,
+				4A60F0011D94C9C2001BFBFF /* HTTPInterface.swift in Sources */,
+				4A60F0001D94C9C2001BFBFF /* Reachability.swift in Sources */,
+				4A60EFF71D94C9C2001BFBFF /* JSON.swift in Sources */,
+				4A60EFFE1D94C9C2001BFBFF /* JSONSubscripting.swift in Sources */,
+				4A60EFFC1D94C9C2001BFBFF /* JSONParsing.swift in Sources */,
+				4A60F0041D94C9C2001BFBFF /* Teleswift.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4A89249F1D8BE36E005DCB4A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A60EFF41D94C9BF001BFBFF /* classes.swift in Sources */,
+				4A60EFEB1D94C9BF001BFBFF /* JSONLiteralConvertible.swift in Sources */,
+				4A60EFF61D94C9BF001BFBFF /* SpamFilter.swift in Sources */,
+				4A60EFE91D94C9BF001BFBFF /* JSONDecodable.swift in Sources */,
+				4A60EFEC1D94C9BF001BFBFF /* JSONParser.swift in Sources */,
+				4A60EFEE1D94C9BF001BFBFF /* JSONSerializing.swift in Sources */,
+				4A60EFF01D94C9BF001BFBFF /* JSONEncodingDetector.swift in Sources */,
+				4A60EFF31D94C9BF001BFBFF /* global.swift in Sources */,
+				4A60EFEA1D94C9BF001BFBFF /* JSONEncodable.swift in Sources */,
+				4A8924A61D8BE36E005DCB4A /* main.swift in Sources */,
+				4A60EFF21D94C9BF001BFBFF /* HTTPInterface.swift in Sources */,
+				4A60EFF11D94C9BF001BFBFF /* Reachability.swift in Sources */,
+				4A60EFE81D94C9BF001BFBFF /* JSON.swift in Sources */,
+				4A60EFEF1D94C9BF001BFBFF /* JSONSubscripting.swift in Sources */,
+				4A60EFED1D94C9BF001BFBFF /* JSONParsing.swift in Sources */,
+				4A60EFF51D94C9BF001BFBFF /* Teleswift.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4AE6A5A11DA541E600E201EF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4A42D8961D52EE0B002F3A60 /* Teleswift */;
+			targetProxy = 4AE6A5A01DA541E600E201EF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		4A0DD99A1D99012B006F8386 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4A0DD99B1D99012B006F8386 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
+		4A0DD99F1D99012B006F8386 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "teleswift-test-gui/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thisbetterwork.teleswift-test-gui";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		4A0DD9A01D99012B006F8386 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "teleswift-test-gui/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.thisbetterwork.teleswift-test-gui";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		4A42D89D1D52EE0B002F3A60 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -405,21 +649,21 @@
 		4A42D8A01D52EE0B002F3A60 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				DYLIB_CURRENT_VERSION = 1.1;
 				FRAMEWORK_VERSION = A;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Teleswift/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = com.thisbetterwork.Teleswift;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				LLVM_LTO = YES_THIN;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.perhapsmaybeharry.Teleswift;
+				PRODUCT_NAME = Teleswift;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -429,21 +673,21 @@
 		4A42D8A11D52EE0B002F3A60 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				DYLIB_CURRENT_VERSION = 1.1;
 				FRAMEWORK_VERSION = A;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Teleswift/Info.plist;
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited)";
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				PRODUCT_BUNDLE_IDENTIFIER = com.thisbetterwork.Teleswift;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				LLVM_LTO = YES_THIN;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				PRODUCT_BUNDLE_IDENTIFIER = com.perhapsmaybeharry.Teleswift;
+				PRODUCT_NAME = Teleswift;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -453,7 +697,10 @@
 		4A42D90B1D5359E5002F3A60 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)";
 				GCC_OPTIMIZATION_LEVEL = 0;
+				LD_RUNPATH_SEARCH_PATHS = "$(TARGET_BUILD_DIR)";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -464,7 +711,10 @@
 		4A42D90C1D5359E5002F3A60 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				FRAMEWORK_SEARCH_PATHS = "$(TARGET_BUILD_DIR)";
 				GCC_OPTIMIZATION_LEVEL = 0;
+				LD_RUNPATH_SEARCH_PATHS = "$(TARGET_BUILD_DIR)";
 				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -472,9 +722,42 @@
 			};
 			name = Release;
 		};
+		4A8924A71D8BE36E005DCB4A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		4A8924A81D8BE36E005DCB4A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4A0DD99E1D99012B006F8386 /* Build configuration list for PBXNativeTarget "teleswift-test-gui" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A0DD99F1D99012B006F8386 /* Debug */,
+				4A0DD9A01D99012B006F8386 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4A42D8911D52EE0B002F3A60 /* Build configuration list for PBXProject "Teleswift" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -498,6 +781,15 @@
 			buildConfigurations = (
 				4A42D90B1D5359E5002F3A60 /* Debug */,
 				4A42D90C1D5359E5002F3A60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4A8924A91D8BE36E005DCB4A /* Build configuration list for PBXNativeTarget "spam_bot" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A8924A71D8BE36E005DCB4A /* Debug */,
+				4A8924A81D8BE36E005DCB4A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

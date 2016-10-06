@@ -10,7 +10,6 @@ import Cocoa
 
 open class Teleswift {
 	
-	open var outputLimit: Int = 256
 	open var console: Console
 	
 	internal var token: String
@@ -18,7 +17,7 @@ open class Teleswift {
 	open var sf: SpamFilter
 	public init (_ botToken: String, shouldLogVerbosely: Bool = true, shouldLogErrors: Bool = true, toTextView: NSTextView? = nil) {
 		token = botToken
-		console = Console(with_outputLimit: outputLimit, with_textView: toTextView, shouldLogVerbosely: shouldLogVerbosely, shouldLogErrors: shouldLogErrors)
+		console = Console(with_textView: toTextView, shouldLogVerbosely: shouldLogVerbosely, shouldLogErrors: shouldLogErrors)
 		http = HTTPInterface(botToken: token, toConsole: console)
 		sf = SpamFilter(botToken: token, toConsole: console)
 //		http.parentTS = self

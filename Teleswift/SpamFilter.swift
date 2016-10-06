@@ -40,6 +40,9 @@ open class SpamFilter {
 	/// This value represents how many offences an offender must collect to be excommunicated
 	open var secondThreshold: Int = 12
 	
+	/// This value indicates if Teleswift's spam filter saves/reads user data to/from the disk for persistence across restarts.
+	open var shouldSaveData: Bool = true
+	
 	/// Internal variables.
 	open var token: String
 	open var logVerbosely: Bool = true
@@ -65,14 +68,20 @@ open class SpamFilter {
 			
 			var filtered = [Update](), currentSession = [User]()
 			
+			
+			if shouldSaveData {log = try readLogEntries()}
+			try checkForExcomLift()
+			
+			
 			// Checks if toFilter has data.
 			if toFilter.count == 0 {
-				try checkForExcomLift()
 				return toFilter
 			}
 			
 			// Checks if user database has no data. Adds the first user.
-			if log.count == 0 {log.append((user: toFilter.first!.message.from, count: 0, excommunicated: false, excomCount: 0, reliefTime: Date()))}
+			if log.count == 0 {
+				log.append((user: toFilter.first!.message.from, count: 0, excommunicated: false, excomCount: 0, reliefTime: Date()))
+			}
 			
 			// Add users to user database. If users are already in database, skip
 			for i in toFilter {
@@ -88,6 +97,7 @@ open class SpamFilter {
 				currentSession.append(i.message.from)
 			}
 			
+			// if there is only one message in toFilter, check if this user is excommunicated, if not, return toFilter, if yes, continue with loop hell below. This is to save CPU cycles from checking one user if they are excommunicated or not through a large number of loops.
 			if toFilter.count == 1 {
 				for i in log {
 					if i.user.id == toFilter.first!.message.from.id && !i.excommunicated {
@@ -131,6 +141,7 @@ open class SpamFilter {
 			}
 			
 			try checkForExcomLift()
+			if shouldSaveData {try writeLogEntries()}
 			
 			console.verbosity("unfiltered: \(toFilter.count); filtered: \(filtered.count)", caller: #function)
 			return filtered
@@ -160,8 +171,10 @@ open class SpamFilter {
 			logEntry.excommunicated = true
 			logEntry.excomCount += 1
 			logEntry.reliefTime = Date().addingTimeInterval(TimeInterval(pow(excomDuration, Double(logEntry.excomCount))*60))
-			console.verbosity("excommunicated \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", caller: #function)
+			console.verbosity("excommunicated \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", caller: "filter")
 			_ = try ts.sendMessage(chat_id: String(logEntry.user.id), text: "\(excomMessage)\n\nYour excommunication will last <strong>\(pow(excomDuration, Double(logEntry.excomCount))) minute(s)</strong> and be lifted on <strong>\(logEntry.reliefTime) UTC</strong>.\n\nThe time now is <strong>\(Date()) UTC</strong>.", parse_mode: "HTML")
+			
+			try writeLogEntries()
 		})
 	}
 	
@@ -173,24 +186,55 @@ open class SpamFilter {
 			_ = try ts.sendMessage(chat_id: (String(logEntry.user.id)), text: liftedMessage, parse_mode: "HTML")
 			logEntry.excommunicated = false
 			logEntry.count = 0
+			
+			try writeLogEntries()
 		})
 	}
 	
 	/// function that warns user specified in the log entry
 	open func warn(logEntry: inout (user: User, count: Int, excommunicated: Bool, excomCount: Int, reliefTime: Date)) throws {
-		
 		try autoreleasepool(invoking: {
 			let ts = Teleswift(token)
 			_ = try ts.sendMessage(chat_id: String(logEntry.user.id), text: warnMessage, parse_mode: "HTML")
-			console.verbosity("warned \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", caller: #function)
+			console.verbosity("warned \(logEntry.user.id) - \(logEntry.user.first_name) \(logEntry.user.last_name)", caller: "filter")
 		})
 	}
 	
 	/// function that derives log entry from user ID
 	open func getLogEntryFromID(user_id: Int) -> (Bool, Int) {
-		for i in 0..<log.count {
-			if log[i].user.id == user_id {return (true, i)}
+		return autoreleasepool {
+			for i in 0..<log.count { if log[i].user.id == user_id {return (true, i)}}; return (false, Int())
 		}
-		return (false, Int())
+	}
+	
+	open func writeLogEntries() throws {
+		try autoreleasepool(invoking: {
+			var logString = String()
+			for i in log {
+				//			[(user: User, count: Int, excommunicated: Bool, excomCount: Int, reliefTime: Date)]()
+				logString.append("\(i.user.id),\(i.user.first_name),\(i.count),\(i.excommunicated),\(i.excomCount),\(i.reliefTime.timeIntervalSince1970)\n")
+			}
+			if !FileManager.default.fileExists(atPath: "\(Bundle.main.resourcePath!)/log.sf") {FileManager.default.createFile(atPath: "\(Bundle.main.resourcePath!)/log.sf", contents: nil, attributes: nil)}
+			if try String(contentsOfFile: "\(Bundle.main.resourcePath!)/log.sf") == logString{return}
+			try logString.write(toFile: "\(Bundle.main.resourcePath!)/log.sf", atomically: true, encoding: .utf8)
+			console.verbosity("written spam filter log entries", caller: "writeLogEntries")
+		})
+	}
+	
+	open func readLogEntries() throws -> [(user: User, count: Int, excommunicated: Bool, excomCount: Int, reliefTime: Date)] {
+		return try autoreleasepool(invoking: {
+			if !FileManager.default.fileExists(atPath: "\(Bundle.main.resourcePath!)/log.sf") {FileManager.default.createFile(atPath: "\(Bundle.main.resourcePath!)/log.sf", contents: nil, attributes: nil)}
+			var read = [(user: User, count: Int, excommunicated: Bool, excomCount: Int, reliefTime: Date)]()
+			var writtenLog = try String(contentsOfFile: "\(Bundle.main.resourcePath!)/log.sf")
+			if writtenLog == String() {return [(user: User, count: Int, excommunicated: Bool, excomCount: Int, reliefTime: Date)]()}
+			writtenLog = writtenLog.trimmingCharacters(in: .whitespacesAndNewlines)
+			for i in writtenLog.components(separatedBy: "\n") {
+				let j = i.components(separatedBy: ",")
+				let current = (User(with_id: Int(j[0])!, with_first_name: j[1]), Int(j[2])!, Bool(j[3])!, Int(j[4])!, Date(timeIntervalSince1970: TimeInterval(j[5])!))
+				read.append(current as (user: User, count: Int, excommunicated: Bool, excomCount: Int, reliefTime: Date))
+			}
+			console.verbosity("read spam filter log entries", caller: "readLogEntries")
+			return read
+		})
 	}
 }

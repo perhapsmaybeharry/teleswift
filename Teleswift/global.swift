@@ -6,7 +6,6 @@
 //  Copyright © 2016 thisbetterwork. All rights reserved.
 //
 
-import Foundation
 import Cocoa
 
 
@@ -108,10 +107,11 @@ internal extension JSON {
 
 public class Console {
 	open var log: [String]
-	open var outputLimit: Int
+	open var outputLimit: Int = 256
 	open var textView: NSTextView?
 	open var logVerbosely: Bool = true
 	open var logErrors: Bool = true
+	open var font: NSFont? = NSFont(name: ".SFNSText-Light", size: 11.0)
 	
 	public init(with_outputLimit: Int = 256, with_textView: NSTextView? = nil, shouldLogVerbosely: Bool = true, shouldLogErrors: Bool = true) {
 		log = [String]()
@@ -122,17 +122,35 @@ public class Console {
 	}
 	
 	/// Function to log verbosely.
-	internal func verbosity(_ message: String, caller: String = #function.components(separatedBy: "(").first!) {
-		if log.count > outputLimit {log = Array(log[(log.count-(outputLimit+1))..<(log.count)])}
-		log.append("[\(caller)] \(message)")
-		if logVerbosely {print(log.last!); if textView != nil {DispatchQueue.main.async{self.textView?.xlog(self.log.last!)}}}
+	open func verbosity(_ message: String, caller: String = #function.components(separatedBy: "(").first!) {
+		DispatchQueue.main.async{
+			self.log.append("[\(caller)] \(message)")
+			if self.logVerbosely {
+				print(self.log.last!)
+				if self.textView != nil {
+					self.textView?.xlog(self.log.last!, font: self.font!)
+					if self.font != nil {
+						self.textView?.font = self.font
+					}
+				}
+			}
+		}
 	}
 	
 	/// Function to log errors with variable levels of severity.
-	internal func error(_ message: String, severity: errorSeverity = .STANDARD, caller: String = #function.components(separatedBy: "(").first!) {
-		if log.count > outputLimit {log.removeFirst()}
-		log.append("[ERROR/\(severity)] \(message)")
-		if logErrors {print(log.last!); if textView != nil {DispatchQueue.main.async{self.textView?.xlog(self.log.last!)}}}
+	open func error(_ message: String, severity: errorSeverity = .STANDARD, caller: String = #function.components(separatedBy: "(").first!) {
+		DispatchQueue.main.async {
+			self.log.append("[ERROR/\(severity)] \(message)")
+			if self.logErrors {
+				print(self.log.last!)
+				if self.textView != nil {
+					self.textView?.xlog(self.log.last!, font: self.font!)
+					if self.font != nil {
+						self.textView?.font = self.font
+					}
+				}
+			}
+		}
 	}
 	
 	open func clear() {log = [String]()}
@@ -140,9 +158,9 @@ public class Console {
 }
 
 public extension NSTextView {
-	public func appendText(_ line: String) {
+	public func appendText(_ line: String, font: NSFont) {
 		DispatchQueue.main.async {
-			let astring = NSAttributedString(string: "\(line)\n", attributes: nil)
+			let astring = NSAttributedString(string: "\(line)\n", attributes: [NSFontAttributeName: font])
 			self.textStorage?.append(astring)
 			
 			self.scrollToEndOfDocument(self)
@@ -152,5 +170,5 @@ public extension NSTextView {
 //			self.scrollRangeToVisible(range)
 		}
 	}
-	public func xlog(_ line: String) {self.appendText(line)}
+	public func xlog(_ line: String, font: NSFont) {self.appendText(line, font: font)}
 }
