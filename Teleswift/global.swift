@@ -112,6 +112,9 @@ public class Console {
 	open var logVerbosely: Bool = true
 	open var logErrors: Bool = true
 	open var font: NSFont? = NSFont(name: ".SFNSText-Light", size: 11.0)
+	open var logWithTime: Bool = true
+	
+	private var dateFormatter = DateFormatter()
 	
 	public init(with_outputLimit: Int = 256, with_textView: NSTextView? = nil, shouldLogVerbosely: Bool = true, shouldLogErrors: Bool = true) {
 		log = [String]()
@@ -119,18 +122,25 @@ public class Console {
 		textView = with_textView
 		logVerbosely = shouldLogVerbosely
 		logErrors = shouldLogErrors
+		
+		// date formatting stuff
+		dateFormatter.dateFormat = "d MMM HH:mm:ss"
+		dateFormatter.locale = NSLocale.current
+		
 	}
 	
 	/// Function to log verbosely.
 	open func verbosity(_ message: String, caller: String = #function.components(separatedBy: "(").first!) {
-		DispatchQueue.main.async{
-			self.log.append("[\(caller)] \(message)")
-			if self.logVerbosely {
-				print(self.log.last!)
-				if self.textView != nil {
-					self.textView?.xlog(self.log.last!, font: self.font!)
-					if self.font != nil {
-						self.textView?.font = self.font
+		autoreleasepool {
+			DispatchQueue.main.async{
+				self.log.append(self.logWithTime ? "[\(self.dateFormatter.string(from: Date()))] [\(caller)] \(message)" : "[\(caller)] \(message)")
+				if self.logVerbosely {
+					print(self.log.last!)
+					if self.textView != nil {
+						self.textView?.xlog(self.log.last!, font: self.font!)
+						if self.font != nil {
+							self.textView?.font = self.font
+						}
 					}
 				}
 			}
@@ -139,14 +149,16 @@ public class Console {
 	
 	/// Function to log errors with variable levels of severity.
 	open func error(_ message: String, severity: errorSeverity = .STANDARD, caller: String = #function.components(separatedBy: "(").first!) {
-		DispatchQueue.main.async {
-			self.log.append("[ERROR/\(severity)] \(message)")
-			if self.logErrors {
-				print(self.log.last!)
-				if self.textView != nil {
-					self.textView?.xlog(self.log.last!, font: self.font!)
-					if self.font != nil {
-						self.textView?.font = self.font
+		autoreleasepool {
+			DispatchQueue.main.async {
+				self.log.append(self.logWithTime ? "[\(self.dateFormatter.string(from: Date()))] [ERROR/\(severity)/\(caller)] \(message)" : "[ERROR/\(severity)/\(caller)] \(message)")
+				if self.logErrors {
+					print(self.log.last!)
+					if self.textView != nil {
+						self.textView?.xlog(self.log.last!, font: self.font!)
+						if self.font != nil {
+							self.textView?.font = self.font
+						}
 					}
 				}
 			}

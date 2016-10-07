@@ -13,21 +13,6 @@ internal class HTTPInterface {
 	// tg's http api can be queried through HTTP GET/POST requests in the following format:
 	// https://api.telegram.org/bot[token]/[method name]
 	
-	/*
-	
-	  key variables
-		var token: String
-	
-	  key functions
-		synthesiseURL(tgMethod: String, arguments: [String]() = [String]())
-		call(tgMethod: String, arguments: [String]() = [String]())
-	
-		init(botToken: String)
-	
-	*/
-	
-	// create the separate queue for command processing (may be deprecated)
-//	internal let apiQueue = DispatchQueue(label: "commandProcessing", qos: .userInteractive, attributes: .concurrent, autoreleaseFrequency: .workItem)
 
 	// init and token variable + verbosity/error logging variables
 	internal var token: String, console: Console
@@ -63,7 +48,6 @@ internal class HTTPInterface {
 				console.error("Telegram API returned error: \(try returnedData.string("error_code")) - \(try returnedData.string("description").components(separatedBy: ": ").last!)", severity: .SERIOUS)
 				try parseTgError(code: try returnedData.int("error_code"), desc: try returnedData.string("description").components(separatedBy: ": ").last!)
 			}
-//			if try returnedData.bool("ok") == false {parentTS.error("Telegram API returned not OK", enabled: logErrors, severity: .FATAL); throw apiError.notOK}
 			
 			console.verbosity("received: \(returnedData)", caller: "call for \(caller.components(separatedBy: "(").first!)")
 			
