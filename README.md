@@ -37,6 +37,9 @@ let senderOfMessage = updates.message.from.id
 let updateID = updates.update_id
 ```
 
+## Example Source
+The directory `[teleswift-test-gui](https://github.com/perhapsmaybeharry/teleswift/tree/master/teleswift-test-gui)` contains a somewhat-user-friendly GUI wrapper oriented around designing your first Teleswift-based bot. Example code is provided.
+
 ## Requirements
 - Xcode 8 (Swift 3)
 - OS X 10.10 (Swift support)
