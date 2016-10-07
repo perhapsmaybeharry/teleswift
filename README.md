@@ -26,7 +26,31 @@ let ts = Teleswift(token)
 ### Calling a method
 Calling methods in Teleswift is as natural as calling `print()`. Simply call the method you wish to call from the Teleswift instance you have created.
 ```Swift
-print(ts.getMe().username) // prints the username of your bot
+ts.getMe() // returns a User object
+```
+
+### Properties
+Accessing properties returned by a method can be performed by chaining in Swift. For example, consider the output returned by the function `getMe()`. The function returns a `User` object, which contains the following sub-properties:
+```Swift
+class User {
+	/// Unique identifier for this user or bot
+	open var id: Int
+	/// User's or bot's first name
+	open var first_name: String
+	/// Optional. User's or bot's last name
+	open var last_name: String
+	/// Optional. User's or bot's username
+	open var username: String
+}
+```
+Accessing the username of the `User` object as simple as the following:
+```Swift
+let me = getMe()
+let myUsername = me.username
+```
+Alternatively, to make code more compact and readable, the following works too:
+```Swift
+let myUsername = getMe().username
 ```
 
 ### Getting and accessing updates
